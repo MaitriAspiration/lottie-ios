@@ -40,7 +40,7 @@ final class GradientStroke: ShapeItem {
     gradientType = try container.decode(GradientType.self, forKey: .gradientType)
     highlightLength = try container.decodeIfPresent(KeyframeGroup<Vector1D>.self, forKey: .highlightLength)
     highlightAngle = try container.decodeIfPresent(KeyframeGroup<Vector1D>.self, forKey: .highlightAngle)
-    width = try container.decode(KeyframeGroup<Vector1D>.self, forKey: .width)
+    width = try container.decodeIfPresent(KeyframeGroup<Vector1D>.self, forKey: .width) ?? KeyframeGroup(from: decoder)
     lineCap = try container.decodeIfPresent(LineCap.self, forKey: .lineCap) ?? .round
     lineJoin = try container.decodeIfPresent(LineJoin.self, forKey: .lineJoin) ?? .round
     miterLimit = try container.decodeIfPresent(Double.self, forKey: .miterLimit) ?? 4

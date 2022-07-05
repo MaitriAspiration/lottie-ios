@@ -14,7 +14,7 @@ final class Shape: ShapeItem {
 
   required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: Shape.CodingKeys.self)
-    path = try container.decode(KeyframeGroup<BezierPath>.self, forKey: .path)
+    path = try container.decodeIfPresent(KeyframeGroup<BezierPath>.self, forKey: .path) ?? KeyframeGroup(from: decoder)
     direction = try container.decodeIfPresent(PathDirection.self, forKey: .direction)
     try super.init(from: decoder)
   }

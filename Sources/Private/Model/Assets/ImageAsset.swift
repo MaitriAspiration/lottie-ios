@@ -17,8 +17,8 @@ public final class ImageAsset: Asset {
     let container = try decoder.container(keyedBy: ImageAsset.CodingKeys.self)
     name = try container.decode(String.self, forKey: .name)
     directory = try container.decode(String.self, forKey: .directory)
-    width = try container.decode(Double.self, forKey: .width)
-    height = try container.decode(Double.self, forKey: .height)
+    width = try container.decodeIfPresent(Double.self, forKey: .width) ?? 0
+    height = try container.decodeIfPresent(Double.self, forKey: .height) ?? 0
     try super.init(from: decoder)
   }
 

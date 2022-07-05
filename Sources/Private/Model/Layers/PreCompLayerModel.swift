@@ -16,8 +16,8 @@ final class PreCompLayerModel: LayerModel {
     let container = try decoder.container(keyedBy: PreCompLayerModel.CodingKeys.self)
     referenceID = try container.decode(String.self, forKey: .referenceID)
     timeRemapping = try container.decodeIfPresent(KeyframeGroup<Vector1D>.self, forKey: .timeRemapping)
-    width = try container.decode(Double.self, forKey: .width)
-    height = try container.decode(Double.self, forKey: .height)
+    width = try container.decodeIfPresent(Double.self, forKey: .width) ?? 0
+    height = try container.decodeIfPresent(Double.self, forKey: .height) ?? 0
     try super.init(from: decoder)
   }
 

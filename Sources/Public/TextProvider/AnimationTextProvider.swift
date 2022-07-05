@@ -28,7 +28,9 @@ public final class DictionaryTextProvider: AnimationTextProvider {
   // MARK: Public
 
   public func textFor(keypathName: String, sourceText: String) -> String {
-    values[keypathName] ?? sourceText
+      let trimmedString = keypathName.trimmingCharacters(in: .whitespaces)
+      print("keypathname==>\(trimmedString)")
+      return values[caseInsensitive : trimmedString] ?? sourceText
   }
 
   // MARK: Internal
@@ -50,4 +52,23 @@ public final class DefaultTextProvider: AnimationTextProvider {
   public func textFor(keypathName _: String, sourceText: String) -> String {
     sourceText
   }
+}
+
+extension Dictionary where Key == String {
+
+    subscript(caseInsensitive key: Key) -> Value? {
+        get {
+            if let k = keys.first(where: { $0.caseInsensitiveCompare(key) == .orderedSame }) {
+                return self[k]
+            }
+            return nil
+        }
+        set {
+            if let k = keys.first(where: { $0.caseInsensitiveCompare(key) == .orderedSame }) {
+                self[k] = newValue
+            } else {
+                self[key] = newValue
+            }
+        }
+    }
 }

@@ -16,7 +16,7 @@ final class Stroke: ShapeItem {
     let container = try decoder.container(keyedBy: Stroke.CodingKeys.self)
     opacity = try container.decode(KeyframeGroup<Vector1D>.self, forKey: .opacity)
     color = try container.decode(KeyframeGroup<Color>.self, forKey: .color)
-    width = try container.decode(KeyframeGroup<Vector1D>.self, forKey: .width)
+    width = try container.decodeIfPresent(KeyframeGroup<Vector1D>.self, forKey: .width) ?? KeyframeGroup(from: decoder)
     lineCap = try container.decodeIfPresent(LineCap.self, forKey: .lineCap) ?? .round
     lineJoin = try container.decodeIfPresent(LineJoin.self, forKey: .lineJoin) ?? .round
     miterLimit = try container.decodeIfPresent(Double.self, forKey: .miterLimit) ?? 4
